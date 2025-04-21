@@ -4,34 +4,36 @@ import base64
 #from PIL import Image
 from exif import Image
 
-# the bio will contain the 
-def change_bio():
-    pass
+from PIL import Image
+import numpy as np
+
+# encode text
+text = "Hello world"
+image_path = "server/forest.png"
 
 
-def hide_text(text):
-    with open("server/boris.jpg", "rb") as f:
-        img = Image(f.read())
-        print(img)
-        img.image_description = text
+def write_message_to_image(text,image_path):
+    # converts text to binary and concats into an array full of ints
+    binary_message = "".join([bin(letter)[2:].zfill(8) for letter in text.encode("utf-8")])
+    binary_message = [int(i) for i in binary_message]
 
-    with open("server/modified_boris.jpg", "wb") as new_f:
-        new_f.write(img.get_file())
-    
-    print(dir(img))
-    print("hidden text successfully")
+    binary_message_len = len(binary_message)
 
+    #get image pixels as array
+    with Image.open(image_path) as img:
+        width,height = img.size
+        data = np.array(img)
 
-def read_text(path):
-    with open(path, "rb") as f:
-        img = Image(f.read())
-        try:
-            secret = img.image_description
-            print(secret)
-        except KeyError:
-            print(f"no secret found in {path}")
+    # flatten pixel array
+    data = np.reshape(data, width*height*3)
 
+    #overwrite lsb
+    data[:binary_message_len] = (data[:binary_message_len] & 254) | binary_message
 
-path = "server/modified_boris.jpg"
-hide_text("hello world")
-read_text(path)
+    #reshape back into image pixel array
+    data = np.reshape(data, (height, width, 3))
+
+    # reconstruct image
+    new_img = Image.fromarray(data)
+    new_img.save(image_path)
+    return True # means success and that the rest of the program can carry on.

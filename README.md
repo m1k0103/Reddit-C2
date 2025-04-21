@@ -1,3 +1,3 @@
-# Twitter C2
+# Reddit C2
 
-This is a C2 (Command and Control) server which utilizes Twitter to send command to controlled hosts.
+This is a C2 (Command and Control) server which utilizes Reddit to send command to controlled hosts.
