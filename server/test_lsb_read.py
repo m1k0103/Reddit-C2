@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-image_path = "server/modified_boris.jpg"
+image_path = "server/downloaded/1.png"
 
 with Image.open(image_path) as img:
     width,height = img.size

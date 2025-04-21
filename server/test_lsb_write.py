@@ -10,7 +10,7 @@ binary_message_len = len(binary_message)
 
 
 #get image pixels as array
-with Image.open("server/boris.jpg") as img:
+with Image.open("server/forest.png") as img:
     width,height = img.size
     data = np.array(img)
 
@@ -25,5 +25,5 @@ data = np.reshape(data, (height, width, 3))
 
 # reconstruct image
 new_img = Image.fromarray(data)
-new_img.save("server/modified_boris.jpg")
+new_img.save("server/forest.png")
 new_img.show()
